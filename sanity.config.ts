@@ -11,7 +11,7 @@ import {structure} from './src/sanity/structure'
 
 
 export default defineConfig({
-  basePath: '/studio',
+  basePath: '/ifSOL/studio',
   projectId,
   dataset,
   schema,

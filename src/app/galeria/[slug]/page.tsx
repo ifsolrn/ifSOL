@@ -5,7 +5,8 @@ import { Footer } from "@/components/Footer";
 import { BackToTopButton } from "@/components/BackToTopButton";
 import { client } from "@/lib/sanity.client";
 import groq from "groq";
-import Image from "next/image";
+// import Image from "next/image";
+import { GalleryLightbox } from "@/components/GalleryLightBox";
 import { notFound } from "next/navigation";
 
 // export const revalidate = 0;
@@ -21,6 +22,8 @@ export async function generateStaticParams() {
 interface AlbumImage {
   url: string;
   alt: string;
+  width: number; /*new*/
+  height: number; /*new*/
 }
 
 interface Album {
@@ -38,6 +41,8 @@ const albumQuery = groq`*[_type == "galleryAlbum" && slug.current == $slug][0]{
   "campusName": campus->name,
   images[]{
     "url": asset->url,
+    "width": asset->metadata.dimensions.width,
+    "height": asset->metadata.dimensions.height,
     alt
   }
 }`;
@@ -69,7 +74,7 @@ export default async function AlbumPage({ params }: { params: Promise<{ slug: st
         </div>
 
        
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-7xl mx-auto">
+        {/* <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-7xl mx-auto">
           {album.images.map((image, index) => (
             <div key={index} className="relative aspect-square rounded-lg overflow-hidden shadow-lg">
               <Image
@@ -81,7 +86,8 @@ export default async function AlbumPage({ params }: { params: Promise<{ slug: st
               />
             </div>
           ))}
-        </div>
+        </div> */}
+        <GalleryLightbox images={album.images} />
       </div>
       <Footer />
       <BackToTopButton />

@@ -27,7 +27,7 @@ export function ActivitiesCarousel({ activities }: { activities: Activity[] }) {
   return (
     <section className="ifsol-activities" aria-labelledby="activities-title">
       <div className="ifsol-shell">
-        <h2 id="activities-title">Atividades da ifSOL</h2>
+        <h2 id="activities-title">Atividades da IFsol</h2>
         <div className="ifsol-carousel">
           <button className="ifsol-carousel__arrow ifsol-carousel__arrow--left ifsol-carousel__arrow--dark" onClick={scrollPrev} aria-label="Atividade anterior">
             <ChevronLeft aria-hidden="true" />

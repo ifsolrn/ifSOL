@@ -14,10 +14,10 @@ export function Footer() {
     <footer className="ifsol-footer">
       <div className="ifsol-shell">
         <div className="ifsol-footer__top">
-          <span className="ifsol-footer__name">ifSOL</span>
+          <span className="ifsol-footer__name">IFsol</span>
           <div className="ifsol-footer__socials">
             <a href="mailto:ifsol@ifrn.edu.br" aria-label="Enviar e-mail para a ifSOL"><Mail /></a>
-            <a href="https://www.instagram.com/ifsolrn/" target="_blank" rel="noreferrer" aria-label="Instagram da ifSOL"><Instagram /></a>
+            <a href="https://www.instagram.com/ifrnzonaleste/" target="_blank" rel="noreferrer" aria-label="Instagram da ifSOL"><Instagram /></a>
           </div>
         </div>
         <div className="ifsol-footer__line" />

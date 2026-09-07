@@ -27,8 +27,9 @@ export function HeroSection({ data, totalNuclei = 13 }: HeroSectionProps) {
           </div>
         </div>
         <div className="ifsol-stats" aria-label="Números da ifSOL">
-          <div><strong>{totalNuclei}</strong> núcleos ativos</div>
-          <div><strong>2</strong> anos de atuação</div>
+          {/* <div><strong>{totalNuclei}</strong> núcleos ativos</div> */}
+          <div><strong>14</strong> núcleos ativos</div>
+          <div><strong>Atuando desde 2018</strong></div>
           <div>Economia <strong>Solidária</strong></div>
         </div>
       </div>

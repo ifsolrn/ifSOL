@@ -1,130 +1,58 @@
 "use client";
 
-import React, { useCallback, useEffect } from 'react';
-import useEmblaCarousel from 'embla-carousel-react';
-import Autoplay from 'embla-carousel-autoplay';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { PostCard } from './PostCard';
+import { useCallback } from "react";
+import Link from "next/link";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { PostCard } from "./PostCard";
 
 interface Post {
   _id: string;
   title: string;
   slug: { current: string };
-  mainImage: any;
+  mainImage: unknown;
 }
 
-interface PostCarouselProps {
-  posts: Post[];
-}
-
-export function PostCarousel({ posts }: PostCarouselProps) {
-  
+export function PostCarousel({ posts }: { posts: Post[] }) {
   const [emblaRef, emblaApi] = useEmblaCarousel(
-    {
-      loop: true,
-      align: 'start',
-      slidesToScroll: 1,
-      breakpoints: {
-        '(min-width: 640px)': { slidesToScroll: 1 },
-        '(min-width: 1024px)': { slidesToScroll: 1 }
-      }
-    },
+    { loop: true, align: "start", slidesToScroll: 1 },
     [Autoplay({ delay: 5000, stopOnInteraction: true })]
   );
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
-  
-  const [prevBtnDisabled, setPrevBtnDisabled] = React.useState(true);
-  const [nextBtnDisabled, setNextBtnDisabled] = React.useState(true);
-
-  
-  const scrollPrev = useCallback(
-    () => emblaApi && emblaApi.scrollPrev(),
-    [emblaApi]
-  );
-
-  const scrollNext = useCallback(
-    () => emblaApi && emblaApi.scrollNext(),
-    [emblaApi]
-  );
-
-  
-  const onSelect = useCallback((emblaApi: any) => {
-    setPrevBtnDisabled(!emblaApi.canScrollPrev());
-    setNextBtnDisabled(!emblaApi.canScrollNext());
-  }, []);
-
-  
-  useEffect(() => {
-    if (!emblaApi) return;
-
-    onSelect(emblaApi);
-    emblaApi.on('reInit', onSelect);
-    emblaApi.on('select', onSelect);
-  }, [emblaApi, onSelect]);
-
-  
-  if (!posts || posts.length === 0) {
-    return (
-      <section className="w-full py-16 flex justify-center items-center bg-gray-50">
-        <h2 className="text-xl font-semibold text-gray-700">
-          Não há posts recentes para exibir.
-        </h2>
-      </section>
-    );
-  }
+  if (!posts?.length) return null;
 
   return (
-    <section className="relative w-full py-5 px-8 mb-5">
-      <div className="container relative mx-auto max-w-7xl">
-        <div className="relative">
-          
-          <div className="overflow-hidden rounded-xl" ref={emblaRef}>
-            <div className="flex">
+    <section className="ifsol-news" aria-labelledby="news-title">
+      <span className="ifsol-news__sun ifsol-news__sun--left" aria-hidden="true" />
+      <span className="ifsol-news__sun ifsol-news__sun--right" aria-hidden="true" />
+      <div className="ifsol-shell">
+        <div className="ifsol-section-heading ifsol-section-heading--light">
+          <h2 id="news-title">Notícias</h2>
+          <Link href="/noticias">Ver tudo <span aria-hidden="true">→</span></Link>
+        </div>
+        <div className="ifsol-carousel">
+          <button className="ifsol-carousel__arrow ifsol-carousel__arrow--left" onClick={scrollPrev} aria-label="Notícia anterior">
+            <ChevronLeft aria-hidden="true" />
+          </button>
+          <div className="ifsol-carousel__viewport" ref={emblaRef}>
+            <div className="ifsol-carousel__track">
               {posts.map((post) => (
-                <div
-                  key={post._id}
-                  className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 pl-4 sm:pl-6 lg:pl-8 pr-4 sm:pr-6 lg:pr-8"
-                >
+                <div className="ifsol-carousel__slide ifsol-carousel__slide--news" key={post._id}>
                   <PostCard post={post} />
                 </div>
               ))}
             </div>
           </div>
-
-          
-          <button
-            className={`absolute -left-6 top-1/2 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-lg z-10 transition-all duration-200 hidden md:block cursor-pointer ${
-              prevBtnDisabled 
-                ? 'opacity-50 cursor-not-allowed' 
-                : 'hover:bg-gray-50 hover:shadow-xl'
-            }`}
-            onClick={scrollPrev}
-            disabled={prevBtnDisabled}
-            aria-label="Anterior"
-          >
-            <ArrowLeft className="h-5 w-5 text-gray-700" />
+          <button className="ifsol-carousel__arrow ifsol-carousel__arrow--right" onClick={scrollNext} aria-label="Próxima notícia">
+            <ChevronRight aria-hidden="true" />
           </button>
-
-          <button
-            className={`absolute -right-6 top-1/2 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-lg z-10 transition-all duration-200 hidden md:block cursor-pointer ${
-              nextBtnDisabled 
-                ? 'opacity-50 cursor-not-allowed' 
-                : 'hover:bg-gray-50 hover:shadow-xl'
-            }`}
-            onClick={scrollNext}
-            disabled={nextBtnDisabled}
-            aria-label="Próximo"
-          >
-            <ArrowRight className="h-5 w-5 text-gray-700" />
-          </button>
-
-
-          <div className="sm:hidden mt-4 text-center">
-            <p className="text-sm text-gray-500">
-              Deslize para ver mais posts →
-            </p>
-          </div>
         </div>
+        <Link className="ifsol-carousel__hint ifsol-carousel__hint--light" href="/noticias">
+          Deslize para ver mais posts <span aria-hidden="true">→</span>
+        </Link>
       </div>
     </section>
   );

@@ -150,12 +150,12 @@ export function ArtigosClient ({
 
                 <div className="flex flex-col md:flex-row gap-8">
                     
-                    <div className="w-full md:w-3/4 flex flex-col gap-6">
+                    <div className="ww-full min-w-0 md:w-3/4 flex flex-col gap-6">
                         {artigos.length > 0 ? (
                             artigos.map((artigo) => (
-                                <div key={artigo._id} className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 p-6 flex flex-col items-start gap-4">
-                                    <h2 className="text-2xl font-bold text-green-800">{artigo.title}</h2>
-                                    <p className="text-gray-700 line-clamp-2">{artigo.description}</p>
+                                <div key={artigo._id} className="w-full min-w-0 overflow-hidden bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 p-6 flex flex-col items-start gap-4">
+                                    <h2 className="w-full text-2xl font-bold text-green-800 [overflow-wrap:anywhere]">{artigo.title}</h2>
+                                    <p className="w-full min-w-0 overflow-hidden text-gray-700 line-clamp-2 [overflow-wrap:anywhere]">{artigo.description}</p>
                                     <div className="flex flex-wrap gap-4 text-sm text-gray-500">
                                         <span>Ano: {artigo.publicationDate || 'Não especificado'}</span>
                                         <span>Campus: {artigo.campus?.name || 'Não especificado'}</span>

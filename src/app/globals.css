@@ -128,3 +128,497 @@ html, body{
     @apply bg-background text-foreground;
   }
 }
+
+/* Home redesign */
+:root {
+  --ifsol-green: #3f9300;
+  --ifsol-green-dark: #4d6d31;
+  --ifsol-cream: #fff2d2;
+  --ifsol-ink: #151515;
+}
+
+.ifsol-home {
+  color: var(--ifsol-ink);
+  background: #fff;
+}
+
+.ifsol-shell {
+  width: min(100% - 40px, 780px);
+  margin-inline: auto;
+}
+
+.ifsol-navbar {
+  position: relative;
+  z-index: 40;
+  height: 70px;
+  background: #fff;
+  border-bottom: 1px solid #c9c9c9;
+  box-shadow: 0 2px 3px rgb(0 0 0 / 12%);
+}
+
+.ifsol-navbar__content {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ifsol-navbar__brand {
+  display: block;
+  width: 92px;
+  height: 62px;
+}
+
+.ifsol-navbar__brand img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ifsol-navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 27px;
+  color: var(--ifsol-green);
+  font-size: 14px;
+}
+
+/* .ifsol-navbar__links a {
+  transition: color .2s ease;
+} */
+
+.ifsol-navbar__links a {
+  display: inline-block;
+  transform: scale(1);
+  transform-origin: center;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* .ifsol-navbar__links a:hover,
+.ifsol-navbar__links a.is-active {
+  color: #245d00;
+} */
+.ifsol-navbar__links a:hover,
+.ifsol-navbar__links a:focus-visible {
+  color: #245d00;
+  transform: scale(1.1);
+}
+
+.ifsol-navbar__links a.is-active {
+  color: #245d00;
+  font-weight: 700;
+}
+
+.ifsol-navbar__menu {
+  display: none;
+  color: var(--ifsol-green);
+  cursor: pointer;
+}
+
+.ifsol-mobile-menu {
+  overflow: hidden;
+  background: var(--ifsol-green) !important;
+  color: #fff;
+  padding: 210px 0 40px;
+}
+
+.ifsol-mobile-menu > button {
+  color: #fff;
+  z-index: 2;
+}
+
+.ifsol-mobile-menu nav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.ifsol-mobile-menu nav a {
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  padding: 0 13%;
+  border-radius: 0 999px 999px 0;
+  text-transform: uppercase;
+  font-size: clamp(18px, 4vw, 28px);
+  font-weight: 500;
+}
+
+.ifsol-mobile-menu nav a.is-active {
+  width: 82%;
+  color: #111;
+  background: #fff;
+  font-weight: 800;
+}
+
+.ifsol-mobile-menu__sun,
+.ifsol-news__sun,
+.ifsol-nucleus-card__sun {
+  position: absolute;
+  display: block;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, #66591e 0 14%, #8a781e 15% 25%, transparent 26%),
+    repeating-conic-gradient(from 4deg, #accb00 0 12deg, transparent 12deg 22.5deg);
+}
+
+/* .ifsol-mobile-menu__sun {
+  top: -68px;
+  left: -75px;
+  width: 230px;
+  opacity: .75;
+} */
+ .ifsol-mobile-menu__sun {
+  top: -185px;
+  left: 0;
+  width: 145px;
+  height: 370px;
+  aspect-ratio: auto;
+  border-radius: 0;
+  opacity: 0.78;
+  background: url("/ifSOL/girassol.png") center / contain no-repeat;
+}
+
+.ifsol-hero {
+  padding: 70px 0 88px;
+}
+
+.ifsol-hero__grid {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 82px;
+  align-items: center;
+}
+
+.ifsol-hero__copy h1,
+.ifsol-section-heading h2,
+.ifsol-activities h2 {
+  color: var(--ifsol-green);
+  font-size: 28px;
+  line-height: 1.1;
+  font-weight: 750;
+}
+
+.ifsol-hero__copy p {
+  max-width: 360px;
+  margin-top: 17px;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.ifsol-hero__actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.ifsol-button {
+  display: inline-flex;
+  min-height: 35px;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 15px;
+  border-radius: 11px;
+  font-size: 14px;
+  transition: transform .2s ease, background .2s ease;
+}
+
+.ifsol-button:hover { transform: translateY(-1px); }
+.ifsol-button--secondary { border: 1px solid #c8c8c8; background: #fafafa; }
+.ifsol-button--primary { color: #fff; background: var(--ifsol-green); }
+.ifsol-button--primary:hover { background: #2f7600; }
+
+.ifsol-stats {
+  display: grid;
+  gap: 12px;
+}
+
+.ifsol-stats > div {
+  min-height: 47px;
+  display: flex;
+  align-items: center;
+  padding: 7px 31px;
+  border-radius: 10px;
+  background: var(--ifsol-green);
+  color: #fff;
+  font-size: 23px;
+  line-height: 1;
+}
+
+.ifsol-stats strong { font-weight: 800; margin-right: .25em; }
+.ifsol-stats div:last-child strong { margin-left: .25em; margin-right: 0; }
+
+.ifsol-news {
+  position: relative;
+  overflow: hidden;
+  padding: 44px 0 45px;
+  background: var(--ifsol-green);
+}
+
+/* .ifsol-news__sun { width: 205px; opacity: .63; } */
+.ifsol-news__sun {
+  width: 75px;
+  height: 190px;
+  aspect-ratio: auto;
+  border-radius: 0;
+  opacity: 0.72;
+  background: url("/ifSOL/girassol.png") center / contain no-repeat;
+}
+/* .ifsol-news__sun--left { left: -122px; bottom: 26px; }
+.ifsol-news__sun--right { right: -122px; top: 73px; } */
+.ifsol-news__sun--left {
+  left: 0;
+  bottom: 30px;
+}
+
+.ifsol-news__sun--right {
+  right: 0;
+  top: 48px;
+  transform: scaleX(-1);
+}
+
+.ifsol-section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.ifsol-section-heading a {
+  font-size: 14px;
+  color: var(--ifsol-green);
+}
+
+.ifsol-section-heading--light h2,
+.ifsol-section-heading--light a { color: #fff; }
+
+.ifsol-carousel { position: relative; }
+.ifsol-carousel__viewport { overflow: hidden; }
+.ifsol-carousel__track { display: flex; margin-inline: -8px; }
+.ifsol-carousel__slide { min-width: 0; padding-inline: 8px; }
+.ifsol-carousel__slide--news { flex: 0 0 33.333%; }
+
+.ifsol-carousel__arrow {
+  position: absolute;
+  z-index: 5;
+  top: 50%;
+  display: grid;
+  width: 34px;
+  height: 54px;
+  place-items: center;
+  color: #fff;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.ifsol-carousel__arrow svg { width: 34px; height: 34px; stroke-width: 1.5; }
+.ifsol-carousel__arrow--left { left: -42px; }
+.ifsol-carousel__arrow--right { right: -42px; }
+.ifsol-carousel__arrow--dark { color: #111; }
+
+.ifsol-post-card {
+  display: flex;
+  min-height: 216px;
+  overflow: hidden;
+  flex-direction: column;
+  border-radius: 11px;
+  background: #fff;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.ifsol-post-card:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgb(0 0 0 / 18%); }
+.ifsol-post-card__media { position: relative; min-height: 152px; background: #f0f0f0; }
+.ifsol-post-card__media > span { display: grid; height: 152px; place-items: center; color: var(--ifsol-green); font-size: 28px; font-weight: 800; }
+.ifsol-post-card h3 { flex: 1; padding: 20px 21px; background: #fff; color: #171717; font-size: 14px; line-height: 1.25; font-weight: 700;  transition: color 0.2s ease; }
+.ifsol-post-card:hover h3,
+.ifsol-post-card:focus-visible h3 {
+  color: var(--ifsol-green);
+}
+.ifsol-carousel__hint { display: none; }
+
+.ifsol-nuclei {
+  padding: 68px 0 91px;
+}
+
+.ifsol-nuclei__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+
+.ifsol-nucleus-card {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 11px;
+  background: var(--ifsol-cream);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.ifsol-nucleus-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgb(53 91 0 / 14%); }
+.ifsol-nucleus-card__image { z-index: 1; object-fit: cover; }
+.ifsol-nucleus-card__sun { top: -28%; right: -24%; width: 62%; opacity: .45; }
+.ifsol-nuclei__mobile-link { display: none; }
+
+.ifsol-location {
+  display: grid;
+  grid-template-columns: 46% 54%;
+  align-items: center;
+  min-height: 286px;
+  margin-bottom: 62px;
+}
+
+.ifsol-location__banner {
+  display: flex;
+  min-height: 263px;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 42px 99px 42px 30px;
+  border-radius: 0 112px 112px 0;
+  background: var(--ifsol-green);
+  color: #fff;
+}
+
+.ifsol-location__banner h2 { font-size: 28px; line-height: 1.18; font-weight: 750; }
+.ifsol-location__banner p { margin-top: 13px; font-size: 17px; line-height: 1.25; }
+.ifsol-location__pin { display: none; }
+.ifsol-location__map { position: relative; justify-self: end; width: min(341px, 100%); height: 286px; margin-right: max(20px, calc((100vw - 780px)/2)); }
+
+.ifsol-activities {
+  padding: 18px 0 80px;
+}
+
+.ifsol-activities h2 { margin-bottom: 30px; }
+.ifsol-carousel__slide--activity { flex: 0 0 33.333%; }
+
+.ifsol-activity-card {
+  min-height: 270px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 18px 14px;
+  border: 2px solid var(--ifsol-green);
+  border-radius: 16px;
+  text-align: center;
+  background: #fff;
+}
+
+.ifsol-activity-card__icon { display: grid; min-height: 57px; place-items: center; color: #111; }
+.ifsol-activity-card__icon svg { width: 47px; height: 47px; stroke-width: 1.5; }
+.ifsol-activity-card h3 { margin-top: 3px; color: var(--ifsol-green); font-size: 16px; font-weight: 700; }
+.ifsol-activity-card__description { margin-top: 12px; color: var(--ifsol-ink); font-size: 14px; line-height: 1.25; font-weight: 400; text-align: left; }
+.ifsol-activity-card__extra { margin-top: 10px; color: var(--ifsol-green); font-size: 12px; font-weight: 700; }
+
+.ifsol-footer {
+  padding: 43px 0 46px;
+  background: var(--ifsol-green);
+  color: #fff;
+}
+
+.ifsol-footer__top,
+.ifsol-footer__links { display: flex; align-items: center; justify-content: space-between; }
+.ifsol-footer__name { font-size: 26px; font-weight: 300; }
+.ifsol-footer__socials { display: flex; gap: 8px; }
+.ifsol-footer__socials a { display: grid; width: 35px; height: 35px; place-items: center; border: 1.5px solid currentColor; border-radius: 50%; }
+.ifsol-footer__socials svg { width: 24px; height: 24px; stroke-width: 1.5; }
+.ifsol-footer__line { width: 100%; height: 2px; margin-top: 2px; background: #fff; }
+.ifsol-footer__links { margin-top: 13px; font-size: 11px; }
+.ifsol-footer__links nav { display: flex; gap: 52px; }
+.ifsol-footer__credit { margin-top: 17px; font-size: 11px; font-weight: 300; }
+
+@media (max-width: 900px) and (min-width: 768px) {
+  .ifsol-navbar__links { gap: 14px; font-size: 12px; }
+  .ifsol-hero__grid { gap: 45px; }
+}
+
+@media (max-width: 767px) {
+  .ifsol-shell { width: min(100% - 56px, 560px); }
+  .ifsol-navbar { height: 65px; }
+  .ifsol-navbar__content { position: relative; justify-content: center; }
+  .ifsol-navbar__menu { position: absolute; left: 0; display: block; }
+  .ifsol-navbar__menu svg { width: 24px; height: 24px; stroke-width: 3; }
+  .ifsol-navbar__brand { width: 80px; height: 58px; }
+  .ifsol-navbar__links { display: none; }
+
+  .ifsol-hero { padding: 37px 0 45px; }
+  .ifsol-hero__grid { display: block; }
+  .ifsol-hero__copy { text-align: center; }
+  .ifsol-hero__copy h1 { font-size: 24px; }
+  .ifsol-hero__copy p { max-width: 300px; margin: 12px auto 0; font-size: 16px; line-height: 1.18; }
+  .ifsol-hero__actions { display: none; }
+  .ifsol-stats { gap: 10px; margin-top: 25px; }
+  .ifsol-stats > div { min-height: 31px; justify-content: center; padding: 5px 12px; border-radius: 8px; font-size: 19px; }
+
+  .ifsol-news { padding: 33px 0 38px; }
+  /* .ifsol-news__sun { width: 155px; opacity: .62; }
+  .ifsol-news__sun--right { top: -90px; right: -75px; }
+  .ifsol-news__sun--left { bottom: -92px; left: -76px; } */
+  .ifsol-news__sun {
+    width: 48px;
+    height: 122px;
+    opacity: 0.72;
+  }
+
+  .ifsol-news__sun--right {
+    top: -5px;
+    right: 0;
+    transform: scaleX(-1);
+  }
+
+  .ifsol-news__sun--left {
+    bottom: -5px;
+    left: 0;
+  }
+  .ifsol-section-heading { justify-content: center; margin-bottom: 17px; }
+  .ifsol-section-heading h2,
+  .ifsol-activities h2 { font-size: 24px; }
+  .ifsol-section-heading > a { display: none; }
+  .ifsol-carousel__track { margin: 0; }
+  .ifsol-carousel__slide { padding: 0; }
+  .ifsol-carousel__slide--news { flex-basis: 100%; }
+  .ifsol-post-card { width: min(100%, 228px); min-height: 214px; margin: auto; }
+  .ifsol-post-card__media { min-height: 152px; }
+  .ifsol-post-card h3 { padding: 20px 18px; }
+  .ifsol-carousel__arrow { width: 30px; }
+  .ifsol-carousel__arrow--left { left: -21px; }
+  .ifsol-carousel__arrow--right { right: -21px; }
+  .ifsol-carousel__arrow svg { width: 31px; height: 31px; }
+  .ifsol-carousel__hint { display: block; margin-top: 10px; text-align: center; color: #777; font-size: 12px; }
+  .ifsol-carousel__hint--light { color: rgb(255 255 255 / 60%); }
+
+  .ifsol-nuclei { padding: 38px 0 42px; }
+  .ifsol-nuclei .ifsol-section-heading { margin-bottom: 22px; }
+  .ifsol-nuclei__grid { grid-template-columns: repeat(2, 1fr); gap: 17px 14px; }
+  .ifsol-nucleus-card { border-radius: 10px; }
+  .ifsol-nuclei__mobile-link { display: block; margin-top: 17px; text-align: right; font-size: 13px; }
+
+  .ifsol-location { display: block; min-height: 0; margin-bottom: 41px; }
+  .ifsol-location__banner { min-height: 142px; justify-content: space-between; padding: 32px 42px 32px 29px; border-radius: 0 76px 76px 0; }
+  .ifsol-location__banner h2 { font-size: 23px; }
+  .ifsol-location__banner p { display: none; }
+  .ifsol-location__pin { display: block; width: 47px; height: 47px; fill: #fff; stroke: var(--ifsol-green); stroke-width: 1.5; }
+  .ifsol-location__map { width: calc(100% - 54px); height: auto; aspect-ratio: 1.19; margin: 16px auto 0; }
+
+  .ifsol-activities { padding: 4px 0 79px; }
+  .ifsol-activities h2 { margin-bottom: 25px; text-align: center; }
+  .ifsol-carousel__slide--activity { flex-basis: 100%; }
+  .ifsol-activity-card { width: min(100%, 275px); min-height: 210px; margin: auto; padding: 15px 18px; border-radius: 14px; }
+  .ifsol-activity-card__description { font-size: 11px; line-height: 1.15; }
+  .ifsol-activities .ifsol-carousel__arrow { display: none; }
+
+  .ifsol-footer { padding: 27px 0 29px; }
+  .ifsol-footer .ifsol-shell { width: min(100% - 56px, 560px); }
+  .ifsol-footer__name { font-size: 22px; }
+  .ifsol-footer__socials a { width: 24px; height: 24px; }
+  .ifsol-footer__socials svg { width: 18px; height: 18px; }
+  .ifsol-footer__links { align-items: flex-start; font-size: 9px; }
+  .ifsol-footer__links nav { flex-wrap: wrap; gap: 5px 18px; max-width: 82%; }
+  .ifsol-footer__credit { margin-top: 10px; font-size: 9px; }
+}

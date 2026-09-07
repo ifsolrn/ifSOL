@@ -66,14 +66,14 @@ export default async function ArtigoPage({ params }: { params: Promise<{ slug: s
     <main className="min-h-screen flex flex-col ">
       <Navbar />
       <div className="container mx-auto px-8 py-12 flex-grow">
-        <article className="max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-green-800 text-center">
+        <article className="w-full min-w-0 max-w-4xl mx-auto overflow-hidden">
+          <h1 className="w-full text-4xl md:text-5xl font-bold mb-4 text-green-800 text-center [overflow-wrap:anywhere]">
             {artigo.title}
           </h1>
 
           
-          <p className="text-xl italic text-gray-600 mb-6 text-center">
-            {autoresFormatados}
+          <p className="w-full min-w-0 overflow-hidden text-xl italic text-gray-600 mb-6 text-center [overflow-wrap:anywhere]">
+            Autores: {autoresFormatados}
           </p>
 
 
@@ -91,7 +91,7 @@ export default async function ArtigoPage({ params }: { params: Promise<{ slug: s
           
           
           <h2 className="text-3xl font-bold mb-4 text-green-800">Resumo</h2>
-          <div className="text-lg text-gray-700 mb-12 text-justify">
+          <div className="w-full min-w-0 max-w-full overflow-hidden text-lg text-gray-700 mb-12 text-justify [overflow-wrap:anywhere]">
             <PortableText value={artigo.description}/>
           </div>
           
@@ -102,7 +102,7 @@ export default async function ArtigoPage({ params }: { params: Promise<{ slug: s
                   <h3 className="text-xl font-bold mb-3 text-green-800">Palavras-Chave</h3>
                   <div className="flex flex-wrap gap-2">
                       {artigo.keywords.map((tag, index) => (
-                          <span key={index} className="px-3 py-1 bg-gray-200 text-gray-600 rounded-md text-sm">
+                          <span key={index} className="max-w-full px-3 py-1 bg-gray-200 text-gray-600 rounded-md text-sm [overflow-wrap:anywhere]">
                               {tag}
                           </span>
                       ))}

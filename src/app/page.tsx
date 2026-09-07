@@ -5,51 +5,49 @@ import { HeroSection } from "@/components/HeroSection";
 import { PostCarousel } from "@/components/PostCarousel"; 
 import { client } from "@/lib/sanity.client";
 import groq from "groq";
-import { AboutSection } from "@/components/AboutSections";
 import { ActivitiesCarousel } from "@/components/ActivityCarousel";
 import { Footer } from "@/components/Footer";
 import { BackToTopButton } from "@/components/BackToTopButton";
+import { FeaturedNuclei, LocationSection } from "@/components/HomeSections";
 
-const homepageQuery = groq`*[_type == "homepage"][0]{
-  heroSection,
-  aboutSections,
-  "activities": activities[]->{
+const homeQuery = groq`{
+  "homepage": *[_type == "homepage"][0]{
+    heroSection,
+    "locationImage": aboutSections[_type == "singleImageBlock"][0].image,
+    "activities": activities[]->{
+      _id,
+      title,
+      description,
+      icon,
+      extraText
+    }
+  },
+  "posts": *[_type == "post"] | order(_createdAt desc) [0..6]{
     _id,
     title,
-    description,
-    icon,
-    extraText
-  }
+    slug,
+    mainImage
+  },
+  "nuclei": *[_type == "nucleoAcademico"] | order(name asc) [0...4]{
+    _id,
+    name,
+    slug,
+    logo
+  },
+  "totalNuclei": count(*[_type == "nucleoAcademico"])
 }`;
-
-const postsQuery = groq`*[_type == "post"] | order(_createdAt desc) [0..6]{
-  _id,
-  title,
-  slug,
-  mainImage
-}`;
-
-const dummyInstagramPosts = [
-  { id: '1', media_url: 'https://via.placeholder.com/300', permalink: '#', caption: 'Post 1' },
-  { id: '2', media_url: 'https://via.placeholder.com/300', permalink: '#', caption: 'Post 2' },
-  { id: '3', media_url: 'https://via.placeholder.com/300', permalink: '#', caption: 'Post 3' },
-  { id: '4', media_url: 'https://via.placeholder.com/300', permalink: '#', caption: 'Post 4' },
-  { id: '5', media_url: 'https://via.placeholder.com/300', permalink: '#', caption: 'Post 5' },
-];
 
 export default async function Home() {
-  const [homepageData, postsData] = await Promise.all([
-    client.fetch(homepageQuery),
-    client.fetch(postsQuery),
-  ]);
+  const data = await client.fetch(homeQuery);
 
   return (
-    <main > 
+    <main className="ifsol-home">
       <Navbar />
-      <HeroSection data={homepageData?.heroSection} />
-      <PostCarousel posts={postsData} /> 
-      <AboutSection data={homepageData?.aboutSections}/>
-      <ActivitiesCarousel activities={homepageData?.activities}/>
+      <HeroSection data={data?.homepage?.heroSection} totalNuclei={data?.totalNuclei} />
+      <PostCarousel posts={data?.posts} />
+      <FeaturedNuclei nuclei={data?.nuclei} />
+      <LocationSection image={data?.homepage?.locationImage} />
+      <ActivitiesCarousel activities={data?.homepage?.activities}/>
       <Footer/>
       <BackToTopButton/>
     </main>

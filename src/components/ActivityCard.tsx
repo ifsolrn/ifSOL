@@ -1,47 +1,35 @@
-
-import React from 'react';
-import Image from 'next/image';
-import { urlFor } from '@/lib/urlFor';
-import { PortableText } from '@portabletext/react';
+import Image from "next/image";
+import { PortableText } from "@portabletext/react";
+import { Store } from "lucide-react";
+import { urlFor } from "@/lib/urlFor";
 
 interface ActivityCardProps {
   activity: {
     _id: string;
     title: string;
-    description: any[];
-    icon: any;
+    description: unknown[];
+    icon: unknown;
     extraText: string;
   };
 }
 
 export function ActivityCard({ activity }: ActivityCardProps) {
-  const iconUrl = activity.icon ? urlFor(activity.icon).url() : null;
+  const iconUrl = activity.icon ? urlFor(activity.icon).width(128).height(128).url() : null;
 
   return (
-    <div className="flex flex-col items-center p-4 sm:p-6 border-2 border-green-500 rounded-lg text-center shadow-lg bg-white h-full min-h-[300px] sm:min-h-[340px]">
-      {iconUrl && (
-        <Image
-          src={iconUrl}
-          alt={activity.title || "Activity Icon"}
-          width={64}
-          height={64}
-          className="mb-4 object-contain flex-shrink-0"
-        />
-      )}
-      
-      <h3 className="text-lg sm:text-xl font-bold mb-2 text-green-800 leading-tight min-h-[2.5rem] flex items-center">
-        {activity.title}
-      </h3>
-      
-      <div className="text-sm text-gray-700 mb-4 flex-grow">
-        <PortableText value={activity.description} />
+    <article className="ifsol-activity-card">
+      <div className="ifsol-activity-card__icon" aria-hidden="true">
+        {iconUrl ? (
+          <Image src={iconUrl} alt="" width={58} height={58} className="object-contain" />
+        ) : (
+          <Store />
+        )}
       </div>
-      
-      {activity.extraText && (
-        <p className="text-xs font-bold mt-auto text-green-600 bg-green-50 px-3 py-1 rounded-full">
-          {activity.extraText}
-        </p>
-      )}
-    </div>
+      <h3>{activity.title}</h3>
+      <div className="ifsol-activity-card__description">
+        <PortableText value={activity.description as never} />
+      </div>
+      {activity.extraText && <p className="ifsol-activity-card__extra">{activity.extraText}</p>}
+    </article>
   );
 }

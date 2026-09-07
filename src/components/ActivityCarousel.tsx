@@ -1,138 +1,52 @@
 "use client";
 
-import React, { useCallback, useEffect } from 'react';
-import useEmblaCarousel from 'embla-carousel-react';
-import Autoplay from 'embla-carousel-autoplay';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { ActivityCard } from './ActivityCard';
+import { useCallback } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ActivityCard } from "./ActivityCard";
 
 interface Activity {
   _id: string;
   title: string;
-  description: any[];
-  icon: any;
+  description: unknown[];
+  icon: unknown;
   extraText: string;
 }
 
-interface ActivitiesCarouselProps {
-  activities: Activity[];
-}
-
-export function ActivitiesCarousel({ activities }: ActivitiesCarouselProps) {
-  
+export function ActivitiesCarousel({ activities }: { activities: Activity[] }) {
   const [emblaRef, emblaApi] = useEmblaCarousel(
-    {
-      loop: true,
-      align: 'start',
-      slidesToScroll: 1,
-      breakpoints: {
-        '(min-width: 640px)': { slidesToScroll: 1 },
-        '(min-width: 1024px)': { slidesToScroll: 1 }
-      }
-    },
-    [Autoplay({ delay: 5000, stopOnInteraction: true })]
+    { loop: true, align: "start", slidesToScroll: 1 },
+    [Autoplay({ delay: 5500, stopOnInteraction: true })]
   );
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
-  
-  const [prevBtnDisabled, setPrevBtnDisabled] = React.useState(true);
-  const [nextBtnDisabled, setNextBtnDisabled] = React.useState(true);
-
-
-  const scrollPrev = useCallback(
-    () => emblaApi && emblaApi.scrollPrev(),
-    [emblaApi]
-  );
-
-  const scrollNext = useCallback(
-    () => emblaApi && emblaApi.scrollNext(),
-    [emblaApi]
-  );
-
-  
-  const onSelect = useCallback((emblaApi: any) => {
-    setPrevBtnDisabled(!emblaApi.canScrollPrev());
-    setNextBtnDisabled(!emblaApi.canScrollNext());
-  }, []);
-
-
-  useEffect(() => {
-    if (!emblaApi) return;
-
-    onSelect(emblaApi);
-    emblaApi.on('reInit', onSelect);
-    emblaApi.on('select', onSelect);
-  }, [emblaApi, onSelect]);
-
- 
-  if (!activities || activities.length === 0) {
-    return (
-      <section className="w-full py-16 flex justify-center items-center bg-gray-50">
-        <h2 className="text-xl font-semibold text-gray-700">
-          Não há atividades para exibir.
-        </h2>
-      </section>
-    );
-  }
+  if (!activities?.length) return null;
 
   return (
-    <section className="relative w-full py-8 sm:py-12 px-4 sm:px-8">
-      <div className="container relative mx-auto max-w-7xl">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-8 sm:mb-12 text-green-800">
-          Atividades da ifSOL
-        </h2>
-
-        <div className="relative">
-          
-          <div className="overflow-hidden rounded-xl" ref={emblaRef}>
-            <div className="flex">
+    <section className="ifsol-activities" aria-labelledby="activities-title">
+      <div className="ifsol-shell">
+        <h2 id="activities-title">Atividades da ifSOL</h2>
+        <div className="ifsol-carousel">
+          <button className="ifsol-carousel__arrow ifsol-carousel__arrow--left ifsol-carousel__arrow--dark" onClick={scrollPrev} aria-label="Atividade anterior">
+            <ChevronLeft aria-hidden="true" />
+          </button>
+          <div className="ifsol-carousel__viewport" ref={emblaRef}>
+            <div className="ifsol-carousel__track">
               {activities.map((activity) => (
-                <div
-                  key={activity._id}
-                  className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 pl-4 sm:pl-6 lg:pl-8 pr-4 sm:pr-6 lg:pr-8"
-                >
+                <div className="ifsol-carousel__slide ifsol-carousel__slide--activity" key={activity._id}>
                   <ActivityCard activity={activity} />
                 </div>
               ))}
             </div>
           </div>
-
-          
-          <button
-            className={`absolute -left-6 top-1/2 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-lg z-10 transition-all duration-200 hidden sm:block  ${
-              prevBtnDisabled 
-                ? 'opacity-50 cursor-not-allowed' 
-                : 'hover:bg-gray-50 hover:shadow-xl'
-            }`}
-            onClick={scrollPrev}
-            disabled={prevBtnDisabled}
-            aria-label="Anterior"
-          >
-            <ArrowLeft className="h-5 w-5 text-gray-700 cursor-pointer" />
+          <button className="ifsol-carousel__arrow ifsol-carousel__arrow--right ifsol-carousel__arrow--dark" onClick={scrollNext} aria-label="Próxima atividade">
+            <ChevronRight aria-hidden="true" />
           </button>
-
-          <button
-            className={`absolute -right-6 top-1/2 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-lg z-10 transition-all duration-200 hidden sm:block ${
-              nextBtnDisabled 
-                ? 'opacity-50 cursor-not-allowed' 
-                : 'hover:bg-gray-50 hover:shadow-xl'
-            }`}
-            onClick={scrollNext}
-            disabled={nextBtnDisabled}
-            aria-label="Próximo"
-          >
-            <ArrowRight className="h-5 w-5 text-gray-700 cursor-pointer" />
-          </button>
-
-          <div className="sm:hidden mt-4 text-center">
-            <p className="text-sm text-gray-500">
-              Deslize para ver mais atividades →
-            </p>
-          </div>
         </div>
+        <p className="ifsol-carousel__hint">Deslize para ver mais atividades <span aria-hidden="true">→</span></p>
       </div>
     </section>
   );
 }
-
-
-
